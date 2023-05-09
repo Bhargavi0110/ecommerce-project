@@ -118,12 +118,15 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getAllProducts() {
+        logger.info("In getAllProducts method");
         List<Product> productList =productRepository.findAll();
         if(productList.isEmpty())
         {
             throw new ResourceNotFoundException("Empty!!! No products are available");
         }
+
         return productList;
+
     }
 
     @Override
