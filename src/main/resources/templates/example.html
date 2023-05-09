@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+  <style>
+
+        #products {
+        border-collapse: collapse;
+        width: 73%;
+
+        }
+        #products td, #products th {
+         border: 1px solid #ddd;
+         padding: 8px;
+           }
+
+        #products tr:nth-child(even){background-color: #f2f2f2;}
+
+#products th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: darkblue;
+  color: white;
+}
+
+        .info {
+            font-size: 14px;
+
+        }
+        .infoo
+        {
+         font-size: 16px;
+         color:darkblue;
+         font-weight: bold;
+        }
+        .mainheading {
+            padding: 20px 10px 20px 10px;
+        }
+        .heading {
+
+            color: darkblue;
+            font-size: 14px;
+        }
+
+        .info-container {
+            margin-top:100px;
+            margin-bottom:50px;
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: #E0E0E0;
+            height: 100px;
+
+        }
+
+    @page{
+    @bottom-left {
+        content: element(footer);
+        vertical-align: top;
+        padding-top: 10px;
+    }
+
+    @top-right {
+        content: element(header);
+        vertical-align: bottom;
+        padding-bottom: 10px;
+    }
+
+    size: A4 portrait;
+    margin-top:5.5cm;
+    margin-left:3cm;
+    margin-right:2cm;
+    margin-bottom:3.3cm;
+}
+
+table {
+   -fs-table-paginate: paginate;
+}
+
+@page {
+        margin-top: 10mm;
+
+}
+     p,h1,td,th {
+     font-family: Arial, Helvetica, sans-serif;
+     }
+#pagenumber:before {
+    content: counter(page);
+}
+
+div.header {
+    display: block;
+    position: running(header);
+    border-bottom: 1px solid black;
+}
+
+div.footer {
+    margin-top: 0.5cm;
+    display: block;
+    position: running(footer);
+    border-top: 1px solid black;
+}
+
+#pagecount:before {
+    content: counter(pages);
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+      <h1 class="mainheading">ORDER INVOICE</h1>
+    </div>
+
+
+<div class="d-flex flex-column info-container">
+  <p class="heading pl-3">Order No: <span th:text="${orderNo}"></span></p>
+  <p class="heading pl-3">Order Date: <span th:text="${orderDate}"></span></p>
+</div>
+
+<div>
+  <table id="products">
+    <thead>
+    <tr class="tr">
+      <th class="heading">Sr.No</th>
+      <th class="heading">Product Image</th>
+      <th class="heading">Product Name</th>
+      <th class="heading">Product Description</th>
+      <th class="heading">Price</th>
+      <th class="heading">Quantity</th>
+      <th class="heading">Total Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over the list of items in the order and display each one -->
+    <tr th:each="item,i : ${orderItems}">
+      <td  class="info pl-4" th:text="${i.index+1}"></td>
+      <td class="info pl-4"><img th:src="${item.productImages}" width="50" height="50" /></td>
+      <td  class="info pl-4" th:text="${item.productName}"></td>
+      <td  class="info pl-4" th:text="${item.productDescription}"></td>
+      <td  class="info pl-4" th:text="${item.productPrice}"></td>
+      <td  class="info pl-4" th:text="${item.productQuantity}"></td>
+      <td  class="info pl-4" th:text="${item.priceAfterDiscount}"></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td colspan="2" class="infoo">
+        Total Amount
+      </td>
+      <td class="infoo" th:text="${orderAmount}">
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+    <div class="footer">
+      <p class="pl-4">Thank you for your Order. If you have any questions about your order, you can email us at support@shopping.com</p>
+      <p>Page <span id="pagenumber"></span> of <span id="pagecount"></span></p>
+    </div>
+
+</body>
+</html>

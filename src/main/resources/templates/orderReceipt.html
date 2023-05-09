@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Shopping Invoice</title>
+  <style>
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 14px;
+			line-height: 1.5;
+			margin: 0;
+			padding: 0;
+		}
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			box-sizing: border-box;
+		}
+		h1, h2 {
+			margin: 0;
+			padding: 0;
+		}
+		h1 {
+			font-size: 32px;
+			line-height: 1;
+			margin-bottom: 20px;
+		}
+		h2 {
+			font-size: 20px;
+			line-height: 1;
+			margin-bottom: 10px;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+		th, td {
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			background-color: #f5f5f5;
+		}
+		tfoot td {
+			font-weight: bold;
+			text-align: right;
+		}
+		.footer {
+			margin-top: 20px;
+			text-align: center;
+			font-size: 12px;
+			color: #999;
+		}
+
+
+	</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Shopping Invoice</h1>
+    <p>Order No: <span th:text="${orderNo}"></span></p>
+    <p>Order Date: <span th:text="${orderDate}"></span></p>
+  </header>
+  <table>
+    <thead>
+    <tr>
+      <th>Sr.No</th>
+      <th>Product Image</th>
+      <th>Product Name</th>
+      <th>Product Description</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total Price</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="item,i : ${orderItems}">
+      <td th:text="${i.index+1}"></td>
+      <td ><img th:src="${item.productImages}" width="50" height="50" /></td>
+      <td th:text="${item.productName}"></td>
+      <td th:text="${item.productDescription}"></td>
+      <td th:text="${item.productPrice}"></td>
+      <td th:text="${item.productQuantity}"></td>
+      <td th:text="${item.priceAfterDiscount}"></td>
+    </tr>
+
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="4">Total:</td>
+      <td class="infoo" th:text="${orderAmount}"></td>
+    </tr>
+    </tfoot>
+  </table>
+  <footer class="footer">
+    <p>Thank you for shopping with us!</p>
+  </footer>
+</div>
+</body>
+</html>

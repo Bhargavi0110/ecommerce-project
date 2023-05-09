@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+   @page {
+  size: A4;
+  margin: 0;
+}
+
+body {
+  margin: 1.5cm;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 10px;
+  text-align: center;
+  z-index:2;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 10px;
+  text-align: center;
+}
+
+    .invoice {
+        margin: 60px auto;
+        padding: 20px;
+        width: 80%;
+        margin-bottom: 250px;
+
+    }
+
+    .invoice table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 40px; /* Add this line to create a margin between the header and the table */
+    }
+
+    .invoice table th,
+    .invoice table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .invoice table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    .total {
+        float: right;
+        margin-top: 20px;
+        background-color: grey;
+        color: white;
+        min-width: 100px;
+        padding: 5px;
+        margin-right: 20px;
+        width: 150px;
+        text-align: center;
+    }
+
+    @media print {
+        header,
+        footer {
+            position: fixed;
+        }
+    }
+
+    .order-details {
+        margin-top: 130px;
+        padding-top: 30px;
+        padding-left: 20px;
+        background-color: grey;
+        color: white;
+        padding-bottom: 20px;
+    }
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Shopping Invoice</h1>
+</header>
+
+<div class="order-details">
+  <p>Order No: <span th:text="${orderNo}"></span></p>
+  <p>Order Date: <span th:text="${orderDate}"></span></p>
+</div>
+
+<div class="invoice">
+  <table>
+    <thead>
+    <tr>
+      <th>Sr.No</th>
+      <th>Product Image</th>
+      <th>Product Name</th>
+      <th>Product Description</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item,i : ${orderItems}">
+      <td th:text="${i.index+1}"></td>
+      <td ><img th:src="${item.productImages}" width="50" height="50" /></td>
+      <td th:text="${item.productName}"></td>
+      <td th:text="${item.productDescription}"></td>
+      <td th:text="${item.productPrice}"></td>
+      <td th:text="${item.productQuantity}"></td>
+      <td th:text="${item.priceAfterDiscount}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="total l">
+    <p><strong>Total:</strong> <span th:text="${orderAmount}"></span></p>
+  </div>
+</div>
+<footer>
+  <p>Thank You for order</p>
+</footer>
+</body>
+
+</html>
