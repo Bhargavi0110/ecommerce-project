@@ -109,7 +109,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public ProductImages saveImage(MultipartFile file) throws IOException {
-
+        logger.info("In saveImage method");
         ProductImages productImages=new ProductImages();
         productImages.setName(file.getOriginalFilename());
         productImages.setImageData(file.getBytes());
